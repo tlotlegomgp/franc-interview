@@ -26,8 +26,6 @@ def posts_view():
     return render_template('posts.html', posts=posts)
 
  # date sorting function from first to last according to date
-
-
 def sort(data, name):
     return sorted(data[name], key=lambda x: datetime.strptime(x['time'], '%Y-%m-%dT%H:%M:%SZ'), reverse=False)
 
