@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{data.user}} Timeline</title>
+</head>
+<body>
+<!-- User Timeline information -->
+         <h1>{{data.user}}'s Timeline</h1>
+         <!-- If the user has no posts, display this paragraph -->
+        {% if data.postsAmount < 1 %}
+                <h2>{{data.user}} has not posted yet<h2>
+        {% else %}
+         {% for post in data.posts %}
+        <div>
+                <p>Name:  {{post.status}}</p>
+                <p>Time:  {{post.time}}</p>
+                <hr/>
+        </div>
+        {% endfor %}  
+        {% endif%}
+</body>
+</html>
