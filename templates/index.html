@@ -13,7 +13,9 @@
         {% else %}
             <p>Your tweets:</p>
             <ul>
-                <li>first tweet</li>
+                {% for tweet in tweets %}
+                    <li>{{tweet}}</li>
+                {% endfor %}
             </ul>
         {% endif %}
     </body>
