@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, Response, request
+import json
 
 app = Flask(__name__)
 
@@ -16,8 +17,20 @@ def users_view():
 @app.route('/posts')
 def posts_view():
     with open('./posts.json', 'r') as f:
-        posts = f.read()
-    return Response(posts, mimetype="application/json")
+        posts = json.load(f)
+        users_posts = []
+
+        # Add user to post content to make it easier to sort each post by time
+        for user, content in posts.items():
+            for post in content:
+                post["user"] = user
+                users_posts.append(post)
+
+        # Sort the posts by time
+        sorted_posts = sorted(users_posts, key = lambda x: x['time'], reverse=True)
+
+
+    return Response(str(sorted_posts), mimetype="application/json")
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
