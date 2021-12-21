@@ -32,5 +32,19 @@ def posts_view():
 
     return Response(str(sorted_posts), mimetype="application/json")
 
+
+# User timeline route
+@app.route('/<username>')
+def timeline_view(username):
+    with open('./posts.json', 'r') as f:
+        posts = json.load(f)
+
+        # Sort user posts by time
+        sorted_posts = sorted(posts[username], key = lambda x: x['time'], reverse=True)
+
+    # Pass data to template
+    return render_template('index.html', username = username, tweets = sorted_posts)
+
+    
 if __name__ == '__main__':
     app.run(host='127.0.0.1')
